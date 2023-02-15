@@ -1,0 +1,22 @@
+{
+  "env": {
+    "es2020": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "standard"
+  ],
+  "parser": "@Tiposcript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceTipos": "module"
+  },
+  "plugins": [
+    "@Tiposcript-eslint"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "@Tiposcript-eslint/no-unused-vars": "error"
+  }
+}

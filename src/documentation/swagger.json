@@ -1,0 +1,1031 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "API de Ofertas",
+      "description": "API que gerencia as ofertas do Clube de Permutas.",
+      "contact": {
+        "email": "alexandre.souza@kukac.com.br"
+      }
+    },
+    "servers": [
+      {
+        "url": "http://209.172.47.58:3004/"
+      }
+    ],
+    "tags": [
+      {
+        "name": "ofertas",
+        "description": "Rota para gerenciar as ofertas"
+      },
+      {
+        "name": "ofertasDescontos",
+        "description": "Rota Para gerenciar os descontos das ofertas"
+      },
+      {
+        "name": "ofertasDestinos",
+        "description": "Rota para gerenciar os destinos das ofertas"
+      },
+      {
+        "name": "ofertasTipos",
+        "description": "Rota Para gerenciar os tipos de ofertas"
+      },
+      {
+        "name": "categorias",
+        "description": "Rota Para gerenciar as categorias"
+      },
+      {
+        "name": "ofertasDocumentos",
+        "description": "Rota Para gerenciar os documentos"
+      },
+      {
+        "name": "ofertasImagens",
+        "description": "Rota Para gerenciar as imagens"
+      },
+      {
+        "name": "associados",
+        "description": "Rota Para gerenciar os associados"
+      }
+    ],
+    "paths": {
+        "/ofertas/:id/": {
+          "put": {
+          "tags": [
+            "ofertas"
+          ],
+          "summary": "Alterar uma Oferta",
+          "description": "Alterar uma oferta já existente pelo ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID da oferta a ser alterada",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Alterar uma oferta já existente",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "titulo": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "subtitulo": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "descricao": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "tipo_oferta_id": {
+                                  "type": "string",
+                                  "required": false
+                                },
+                                "valor": {
+                                  "type": "number",
+                                  "required": false
+                                },
+                                "quantidade": {
+                                    "type": "number",
+                                    "required": false
+                                },
+                                "statusOferta": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "disponibilidade": {
+                                  "type": "string",
+                                  "required": false
+                                },
+                                "destino": {
+                                  "type": "string",
+                                  "required": false
+                                },
+                                "vendedor_id": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "associado_id": {
+                                  "type": "string",
+                                  "required": false
+                                },
+                                "imagem": {
+                                  "type": "string",
+                                  "required": false
+                                }
+                            },
+                            "example": {
+                                "titulo": "Oferta a ser alterada",
+                                "subtitulo": "Teste para alterar uma oferta",
+                                "descricao": "Alteração de uma oferta",
+                                "tipo_oferta_id": "c445b6d9-446b-47b1-97a9-d8c2dcf7bb3a",
+                                "valor": "100",
+                                "quantidade": "200",
+                                "statusOferta": "aprovado",
+                                "disponibilidade": "livre",
+                                "destino": "todos",
+                                "vendedor_id": "05a80b6e-52cb-4e61-857a-707fde8c2b03",
+                                "associado_id": "",
+                                "imagem": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Oferta Alterada com sucesso"
+                },
+                "400": {
+                    "description": "Erro no servidor"
+                }
+            }
+          }
+        },
+        "/ofertas/publicar/:id": {
+          "put": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Alterar uma Oferta para publicada",
+            "description": "Alterar o status de publicação de uma oferta já existente pelo ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "ID da oferta a ser publicada",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Alterar o status de publicação de uma oferta já existente",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "type": "object",
+                              "properties": {
+                                  "publicada": {
+                                    "type": "boolean",
+                                    "required": true
+                                  }
+                              },
+                              "example": {
+                                  "publicada": 0
+                              }
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "Oferta Alterada com sucesso"
+                  },
+                  "400": {
+                      "description": "Erro no servidor"
+                  }
+              }
+            }
+          },
+        "/ofertas": {
+          "post": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Criar uma oferta",
+            "description": "Rota para criar oferta",
+            "requestBody": {
+              "description": "Alterar uma oferta já existente",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "type": "object",
+                              "properties": {
+                                  "titulo": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "subtitulo": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "descricao": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "tipo_oferta_id": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "qtd_tipo": {
+                                    "type": "number",
+                                    "required": false
+                                  },
+                                  "qtd_restrita": {
+                                    "type": "number",
+                                    "required": false
+                                  },
+                                  "valor": {
+                                    "type": "number",
+                                    "required": true
+                                  },
+                                  "disponibilidade": {
+                                    "type": "string",
+                                    "required": true
+                                  },
+                                  "statusOferta": {
+                                      "type": "string",
+                                      "required": false
+                                  },
+                                  "fixa": {
+                                    "type": "boolean",
+                                    "required": false
+                                  },
+                                  "destino": {
+                                    "type": "string",
+                                    "required": false
+                                  },
+                                  "vendedor_id": {
+                                      "type": "string",
+                                      "required": false
+                                  },
+                                  "quantidade": {
+                                      "type": "number",
+                                      "required": false
+                                  },
+                                  "associado_id": {
+                                    "type": "string",
+                                    "required": false
+                                  },
+                                  "imagem": {
+                                    "type": "string",
+                                    "required": false
+                                  }
+                              },
+                              "example": {
+                                  "titulo": "Oferta a ser alterada",
+                                  "subtitulo": "Teste para alterar uma oferta",
+                                  "descricao": "Alteração de uma oferta",
+                                  "tipo_oferta_id": "c445b6d9-446b-47b1-97a9-d8c2dcf7bb3a",
+                                  "valor": "100",
+                                  "quantidade": "200",
+                                  "qtd_tipo": "100",
+                                  "qtd_restrita": "50",
+                                  "fixa": "1",
+                                  "statusOferta": "aprovado",
+                                  "disponibilidade": "livre",
+                                  "destino": "todos",
+                                  "vendedor_id": "05a80b6e-52cb-4e61-857a-707fde8c2b03",
+                                  "associado_id": "",
+                                  "imagem": ""
+                              }
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "Oferta criada com sucesso"
+                  },
+                  "400": {
+                      "description": "Erro no servidor"
+                  }
+              }
+            }
+        },
+        "/ofertas/:id": {
+          "get": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Procurar ofertas por ID",
+            "description": "Procurar ofertas por ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "ID da oferta",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertas/associado/:vendedor_id/:id": {
+          "get": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Procurar Todas as ofertas de um associado",
+            "description": "Retorna todas as ofertas de um associao pelo ID",
+            "parameters": [
+              {
+                "name": "vendedor_id",
+                "in": "path",
+                "description": "ID do associado",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              {
+                "name": "id",
+                "in": "path",
+                "description": "id para diferenciar os retornos, id = 1 retorna somente as ofertas aprovadas e publicadas, diferente de 1 retorna todas as ofertas do associado",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertas/categoria/:categorias_id": {
+          "get": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Listar todas as ofertas por categoria",
+            "description": "Listar todas as ofertas pela categoria id",
+            "parameters": [
+              {
+                "name": "categorias_id",
+                "in": "path",
+                "description": "ID do categoria",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertas/increment/:id": {
+          "get": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Acrescenta mais 1 na visualização da oferta",
+            "description": "Rota para incrementar o numero de visualização de determinada oferta",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "ID da oferta visualizada",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertas/": {
+          "get": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Lista todas as ofertas",
+            "description": "Rota para listar as ofertas aprovadas e publicadas",
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertas/delete/:id" : {
+          "delete": {
+            "tags": [
+              "ofertas"
+            ],
+            "summary": "Excluir oferta",
+            "description": "Rota para excluir oferta por ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "description": "ID da oferta a ser excluida",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+
+
+        "/ofertasDescontos/:ofertas_id/": {
+          "put": {
+          "tags": [
+            "ofertasDescontos"
+          ],
+          "summary": "Alterar o desconto de uma oferta",
+          "description": "Alterar o desconto de uma oferta já existente pelo ID",
+          "parameters": [
+            {
+              "name": "ofertas_id",
+              "in": "path",
+              "description": "ID da oferta a ser alterada",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Alterar a informação de desconto de uma oferta já existente, rota que serve pra mudar o (ativo) para true, passando valor 1",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "ofertas_id": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "ativo": {
+                                    "type": "boolean",
+                                    "required": false
+                                },
+                                "descricao": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "desc_porcento": {
+                                  "type": "number",
+                                  "required": false
+                                },
+                                "desc_valor": {
+                                  "type": "number",
+                                  "required": false
+                                },
+                                "validade": {
+                                    "type": "date",
+                                    "required": false
+                                },
+                                "createdAt": {
+                                  "type": "date",
+                                  "required": false
+                                }
+                              },
+                            "example": {
+                                "ofertas_id": "6bde5791-ca64-4d5d-91e1-1ee1cc57ab7c",
+                                "ativo": 0,
+                                "descricao": "alteração no desconto da oferta",
+                                "desc_porcento": 10,
+                                "desc_valor": 30,
+                                "validade": "2022-12-07 17:31:03",
+                                "createdAt": "2022-15-17 17:31:03"
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Oferta Alterada com sucesso"
+                },
+                "400": {
+                    "description": "Erro no servidor"
+                }
+            }
+          }
+        },
+        "/ofertasDescontos": {
+          "post": {
+            "tags": [
+              "ofertasDescontos"
+            ],
+            "summary": "Criar desconto para uma oferta",
+            "description": "Rota para criar desconto pra uma oferta existente",
+            "requestBody": {
+              "description": "Cria um desconto pra uma oferta",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "type": "object",
+                              "properties": {
+                                  "ofertas_id": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "descricao": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "desc_porcento": {
+                                    "type": "number",
+                                    "required": true
+                                  },
+                                  "desc_valor": {
+                                    "type": "number",
+                                    "required": true
+                                  },
+                                  "validade": {
+                                    "type": "date",
+                                    "required": true
+                                  }
+                              },
+                              "example": {
+                                "ofertas_id": "6bde5791-ca64-4d5d-91e1-1ee1cc57ab7c",
+                                "descricao": "Criando um desconto para uma oferta",
+                                "desc_porcento": 20,
+                                "desc_valor": 15,
+                                "validade": "2022-12-07 17:31:03"
+                            }
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "Oferta criada com sucesso"
+                  },
+                  "400": {
+                      "description": "Erro no servidor"
+                  }
+              }
+            }
+        },
+        "/ofertasDescontos/": {
+          "get": {
+            "tags": [
+              "ofertasDescontos"
+            ],
+            "summary": "Lista todas os descontos",
+            "description": "Rota para listar os descontos",
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertasDescontos/delete/:ofertas_id" : {
+          "delete": {
+            "tags": [
+              "ofertasDescontos"
+            ],
+            "summary": "Excluir o desconto por id da oferta",
+            "description": "Rota para excluir o desconto por ID da oferta",
+            "parameters": [
+              {
+                "name": "ofertas_id",
+                "in": "path",
+                "description": "ID da oferta que deseja excluir o desconto",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+
+
+        "/ofertasDestinos": {
+          "post": {
+            "tags": [
+              "ofertasDestinos"
+            ],
+            "summary": "Criar o destino de uma oferta",
+            "description": "Rota para criar o destino de uma oferta existente",
+            "requestBody": {
+              "description": "Cria um destino pra uma oferta caso exista",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "type": "object",
+                              "properties": {
+                                  "ofertas_id": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "associado_id": {
+                                      "type": "string",
+                                      "required": false
+                                  }
+                              },
+                              "example": {
+                                "ofertas_id": "6bde5791-ca64-4d5d-91e1-1ee1cc57ab7c",
+                                "associado_id": "05a80b6e-52cb-4e61-857a-707fde8c2b03"
+                              }
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "Oferta criada com sucesso"
+                  },
+                  "400": {
+                      "description": "Erro no servidor"
+                  }
+              }
+            }
+        },
+        "/ofertasDestinos/": {
+          "get": {
+            "tags": [
+              "ofertasDestinos"
+            ],
+            "summary": "Lista todas os destinos",
+            "description": "Rota para listar os destinos",
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertasDestinos/delete/:ofertas_id" : {
+          "delete": {
+            "tags": [
+              "ofertasDestinos"
+            ],
+            "summary": "Excluir o desconto por id da oferta",
+            "description": "Rota para excluir o desconto por ID da oferta",
+            "parameters": [
+              {
+                "name": "ofertas_id",
+                "in": "path",
+                "description": "ID da oferta que deseja excluir o desconto",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+
+
+        "/ofertasDocumentos/:ofertas_id/": {
+          "put": {
+          "tags": [
+            "ofertasDocumentos"
+          ],
+          "summary": "Alterar o documento de uma oferta",
+          "description": "Alterar o docuemnto de uma oferta já existente pelo ID",
+          "parameters": [
+            {
+              "name": "ofertas_id",
+              "in": "path",
+              "description": "ID da oferta a ser alterado o documento",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Alterar o documento se necessario",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "documento": {
+                                    "type": "string",
+                                    "required": true
+                                }
+                              },
+                            "example": {
+                                "documento": "doc85de87b8ac76c1914151b3576f0365c6.pdf"
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Oferta Alterada com sucesso"
+                },
+                "400": {
+                    "description": "Erro no servidor"
+                }
+            }
+          }
+        },
+        "/ofertasDocumentos": {
+          "post": {
+            "tags": [
+              "ofertasDocumentos"
+            ],
+            "summary": "Salva o documento de uma oferta",
+            "description": "Rota para salvar o documento de uma oferta existente",
+            "requestBody": {
+              "description": "Salva o documento de uma oferta",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "type": "object",
+                              "properties": {
+                                  "ofertas_id": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "documento": {
+                                      "type": "string",
+                                      "required": false
+                                  }
+                              },
+                              "example": {
+                                "ofertas_id": "6bde5791-ca64-4d5d-91e1-1ee1cc57ab7c",
+                                "documento": "doc93ed9b601f0c202d23ad67d4a243982e.pdf"
+                            }
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "Oferta criada com sucesso"
+                  },
+                  "400": {
+                      "description": "Erro no servidor"
+                  }
+              }
+            }
+        },
+        "/ofertasDocumentos/": {
+          "get": {
+            "tags": [
+              "ofertasDocumentos"
+            ],
+            "summary": "Lista todos os documentos",
+            "description": "Rota para listar os documentos",
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertasDocumentos/delete/:ofertas_id" : {
+          "delete": {
+            "tags": [
+              "ofertasDocumentos"
+            ],
+            "summary": "Excluir o documento por id da oferta",
+            "description": "Rota para excluir o documento por ID da oferta",
+            "parameters": [
+              {
+                "name": "ofertas_id",
+                "in": "path",
+                "description": "ID da oferta que deseja excluir o documento",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+
+
+        "/ofertasTipos/:id/": {
+          "put": {
+          "tags": [
+            "ofertasTipos"
+          ],
+          "summary": "Alterar o o tipo para ser usado em uma oferta",
+          "description": "Rota para aletar um tipo caso necessario",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do tipo a ser alterado",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Alterar o tipo se necessario",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "descricao": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "tagname": {
+                                  "type": "string",
+                                  "required": false
+                              }
+                              },
+                            "example": {
+                                "descricao": "Anual",
+                                "tagname": "anual"
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Oferta Alterada com sucesso"
+                },
+                "400": {
+                    "description": "Erro no servidor"
+                }
+            }
+          }
+        },
+        "/ofertasTipos": {
+          "post": {
+            "tags": [
+              "ofertasTipos"
+            ],
+            "summary": "Salva o tipo para ser usado em uma oferta",
+            "description": "Rota para salvar um tipo para ser usado em uma oferta",
+            "requestBody": {
+              "description": "Salva um tipo",
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "type": "object",
+                              "properties": {
+                                  "tagname": {
+                                      "type": "string",
+                                      "required": true
+                                  },
+                                  "documento": {
+                                      "type": "string",
+                                      "required": false
+                                  }
+                              },
+                              "example": {
+                                "ofertas_id": "6bde5791-ca64-4d5d-91e1-1ee1cc57ab7c",
+                                "documento": "doc93ed9b601f0c202d23ad67d4a243982e.pdf"
+                            }
+                          }
+                      }
+                  }
+              },
+              "responses": {
+                  "201": {
+                      "description": "Oferta criada com sucesso"
+                  },
+                  "400": {
+                      "description": "Erro no servidor"
+                  }
+              }
+            }
+        },
+        "/ofertasTipos/": {
+          "get": {
+            "tags": [
+              "ofertasTipos"
+            ],
+            "summary": "Lista todos os documentos",
+            "description": "Rota para listar os documentos",
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        },
+        "/ofertasTipos/delete/:ofertas_id" : {
+          "delete": {
+            "tags": [
+              "ofertasTipos"
+            ],
+            "summary": "Excluir o documento por id da oferta",
+            "description": "Rota para excluir o documento por ID da oferta",
+            "parameters": [
+              {
+                "name": "ofertas_id",
+                "in": "path",
+                "description": "ID da oferta que deseja excluir o documento",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Sucesso"
+              },
+              "400": {
+                  "description": "Erro no servidor"
+              }
+          }
+          }
+        }
+
+      }
+    }

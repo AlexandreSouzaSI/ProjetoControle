@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": [
+      "es6"
+    ],
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@documentation/*": [
+        "./src/documentation/*"
+      ],
+      "@entities/*": [
+        "./src/entities/*"
+      ],
+      "@repositories/*": [
+        "./src/repositories/implementations*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ],
+      "@useCases/*": [
+        "./src/useCases/*"
+      ],
+      "@config/*": [
+        "./src/infrastructure/config/*"
+      ],
+      "@databases/*": [
+        "./src/infrastructure/databases/*"
+      ],
+      "@middlewares/*": [
+        "./src/infrastructure/middlewares/*"
+      ],
+      "@utils/*": [
+        "./src/infrastructure/utils/*"
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+    }
+  },
+  "include": [
+    "src/**/*",
+  ]
+}
+
